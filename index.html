@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelMobil - Rent Car</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        nav {
+            position: fixed;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 1000;
+            transition: background 0.3s ease;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #e74c3c;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            height: 3px;
+            width: 25px;
+            background: #2c3e50;
+            margin: 3px 0;
+            transition: 0.4s;
+            z-index: 2;
+        }
+
+        /* Animasi menu toggle menjadi silang (X) */
+        /*.menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }*/
+
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            padding: 15px 40px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .cta-button a {
+          text-decoration: none;
+          color: white;
+        }
+
+        .cta-button:hover {
+            background: #c0392b;
+        }
+
+        .services {
+            padding: 100px 50px;
+            background: #f9f9f9;
+        }
+
+        .services h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #2c3e50;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: .5s;
+        }
+        
+        .service-card:hover {
+          background: #39D6FD;
+          box-shadow: 0 5px 5px rgba(0,0,0,1);
+        }
+        
+        .testimoni-section {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.testimoni-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.testimoni-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.testimoni-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s ease;
+    opacity: 1;
+}
+
+.testimoni-card:hover {
+    transform: translateY(-10px);
+}
+
+.testimoni-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.testimoni-rating {
+    font-size: 1.5rem;
+    color: #ffd700; /* Warna emas untuk bintang */
+    margin-bottom: 10px;
+}
+
+.testimoni-text {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.testimoni-author {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #333;
+}
+
+        .contact {
+            padding: 100px 50px;
+            text-align: center;
+        }
+
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.9);
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 20px;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links a {
+                margin: 10px 0;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+            .hero-content h1 {
+                font-size: 36px;
+            }
+            .hero img {
+              width: 100%;
+              height: auto;
+              transform: translateY(300px);
+            }
+            .service-card:hover {
+              transform: scale(1.05);
+q            }
+            .cta-button:hover {
+              padding: 13px 37px;
+            }
+              .testimoni-card:hover {
+    transform: translateY(0);
+    transform: scale(1.05);
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.5);
+  }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Travel Bandung Bandara</div>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links" id="nav-links">
+            <a href="#home">Home</a>
+            <a href="#services">Layanan</a>
+            <a href="#Testimoni">Testimoni</a>
+            <a href="#contact">Kontak</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <img src="car.jpeg" alt="Travel Mobil Background">
+        <div class="hero-content">
+            <h1>Jelajahi Destinasi dengan Nyaman</h1>
+            <p>Layanan berkualitas dengan harga terjangkau</p><br>
+            <button class="cta-button"><a href="https://wa.me/6281224742448">Pesan Sekarang</a></button>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <h2>Layanan Kami</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <h3>Door To Door</h3>
+                <p>Layanan antar jemput dari tempat ke tempat</p>
+            </div>
+            <div class="service-card">
+                <h3>Antar Jemput Bandara</h3>
+                <p>Layanan antar jemput bandara 24 jam</p>
+            </div>
+            <div class="service-card">
+                <h3>Tour Guide</h3>
+                <p>Dengan sopir yang berpengalaman</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="testimoni-section" id="Testimoni">
+        <h2>Testimoni Pelanggan</h2>
+        <div class="testimoni-container">
+            <div class="testimoni-card">
+                <img src="image.jpg" alt="Foto Pelanggan 1" class="testimoni-img">
+                <div class="testimoni-rating">
+                    ★★★★★
+                </div>
+                <p class="testimoni-text">"Pelayanan sangat memuaskan! Produknya berkualitas dan pengiriman cepat."</p>
+                <p class="testimoni-author">- John Doe</p>
+            </div>
+            <div class="testimoni-card">
+                <img src="image.jpg" alt="Foto Pelanggan 2" class="testimoni-img">
+                <div class="testimoni-rating">
+                    ★★★★☆
+                </div>
+                <p class="testimoni-text">"Saya sangat senang dengan hasilnya. Terima kasih tim!"</p>
+                <p class="testimoni-author">- Jane Smith</p>
+            </div>
+            <div class="testimoni-card">
+                <img src="image.jpg" alt="Foto Pelanggan 3" class="testimoni-img">
+                <div class="testimoni-rating">
+                    ★★★☆☆
+                </div>
+                <p class="testimoni-text">"Pengalaman belanja yang menyenangkan. Pasti akan kembali lagi."</p>
+                <p class="testimoni-author">- Michael Brown</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2>Hubungi Kami</h2>
+        <form class="contact-form" id="contactForm">
+            <input type="text" id="name" placeholder="Nama" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <textarea id="message" rows="5" placeholder="Pesan" required></textarea>
+            <button class="cta-button" type="submit">Kirim Pesan</button>
+        </form>
+       </section>
+
+    <footer>
+        <p>© Travel Bandung Bandara 2025. All rights reserved</p>
+    </footer>
+
+    <script>
+        // Smooth scroll untuk navigasi
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Efek scroll navbar
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('nav').style.background = 'rgba(255,255,255,0.95)';
+            } else {
+                document.querySelector('nav').style.background = 'rgba(255,255,255,0.9)';
+            }
+        });
+
+        // Toggle menu mobile
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        mobileMenu.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Form submission ke WhatsApp
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Ambil data dari form
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            // Format pesan untuk WhatsApp
+            const whatsappMessage = `Halo, saya ${name} (${email})\nPesan: "${message}"`;
+
+            // Nomor WhatsApp tujuan (ganti dengan nomor Anda)
+            const phoneNumber = "6285871792559"; // Contoh: 6281234567890
+
+            // Encode pesan untuk URL
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+
+            // Buat link WhatsApp
+            const whatsappLink = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+
+            // Buka link WhatsApp di tab baru
+            window.open(whatsappLink, '_blank');
+        });
+    </script>
+</body>
+</html>
